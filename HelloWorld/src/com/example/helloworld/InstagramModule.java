@@ -27,28 +27,28 @@ public class InstagramModule implements DialogListener {
         Log.d("InstagramModule", "" + client.isSessionValid());
         Log.d("InstagramModule", "" + accessToken);
         
-        new AsyncTask<Object, Object, List<User>>() {
+        new AsyncTask<Object, Object, ExtendedUser>() {
 
 			@Override
-			protected List<User> doInBackground(Object... params) {
+			protected ExtendedUser doInBackground(Object... params) {
 				List<User> users = client.fetchCollection("/users/search", User.class,
 						new Parameter("q", "dushonok")
 				).getData();
 		        
-		    	        
-		        return users;
-		    }
-			
-			@Override
-			protected void onPostExecute(List<User> users) {   
+				String userID = users.get(0).getId();
+		        
 				Log.d("InstagramModule", "users: " + users.size());
 		        Log.d("InstagramModule", "name: " + users.get(0).getFullName());
 		        
-		        String userID = users.get(0).getId();
 		        
 		        ExtendedUser user = client.fetchObject("/users/"+userID, ExtendedUser.class);
-		        
-		        Log.d("InstagramModule", "followed_by count = " + user.counts.followed_by);
+		    	        
+		        return user;
+		    }
+			
+			@Override
+			protected void onPostExecute(ExtendedUser user) {   
+			    Log.d("InstagramModule", "followed_by count = " + user.counts.followed_by);
 		        
 				mMediaListener.OnMedia(user.counts.followed_by);     
 			}
