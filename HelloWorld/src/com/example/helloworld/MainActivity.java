@@ -1,10 +1,14 @@
 package com.example.helloworld;
 
+import java.util.List;
+
 import com.blinxbox.restig.auth.InstagramAuthDialog;
 import com.blinxbox.restig.auth.InstagramAuthDialog.DialogListener;
+import com.blinxbox.restinstagram.types.MediaPost;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -52,10 +56,11 @@ public class MainActivity extends Activity implements MediaListener {
     }
 
 	@Override
-	public void OnMedia(int count) {
-		// TODO Auto-generated method stub
-		EditText username = (EditText)findViewById(R.id.username);
-		username.setText("" + count);
+	public void OnMedia(List<MediaPost> medias) {
+		for (int i =0 ; i < medias.size(); ++i) {
+			Log.d("InstagramModule", "image: caption = '" + medias.get(i).getCaption().getText() + 
+					"', likes = " + medias.get(i).getLikes().getCount());
+		}
 	}
     
     

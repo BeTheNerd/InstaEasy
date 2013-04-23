@@ -50,12 +50,7 @@ public class InstagramModule implements DialogListener {
 			
 			@Override
 			protected void onPostExecute(List<MediaPost> medias) {   
-				for (int i =0 ; i < medias.size(); ++i) {
-					Log.d("InstagramModule", "image: caption = '" + medias.get(i).getCaption().getText() + 
-							"', likes = " + medias.get(i).getLikes().getCount());
-				}
-		        
-				//mMediaListener.OnMedia(user.counts.followed_by);     
+				mMediaListener.OnMedia(medias);     
 			}
         	
         }.execute();
