@@ -10,6 +10,7 @@ import com.blinxbox.restig.auth.DialogError;
 import com.blinxbox.restig.auth.InstagramAuthDialog.DialogListener;
 import com.blinxbox.restinstagram.DefaultInstagramClient;
 import com.blinxbox.restinstagram.Parameter;
+import com.blinxbox.restinstagram.types.MediaPost;
 import com.blinxbox.restinstagram.types.MediaPost.User;
 
 public class InstagramModule implements DialogListener {
@@ -27,10 +28,10 @@ public class InstagramModule implements DialogListener {
         Log.d("InstagramModule", "" + client.isSessionValid());
         Log.d("InstagramModule", "" + accessToken);
         
-        new AsyncTask<Object, Object, ExtendedUser>() {
+        new AsyncTask<Object, Object, List<MediaPost>>() {
 
 			@Override
-			protected ExtendedUser doInBackground(Object... params) {
+			protected List<MediaPost> doInBackground(Object... params) {
 				List<User> users = client.fetchCollection("/users/search", User.class,
 						new Parameter("q", "dushonok")
 				).getData();
@@ -41,16 +42,20 @@ public class InstagramModule implements DialogListener {
 		        Log.d("InstagramModule", "name: " + users.get(0).getFullName());
 		        
 		        
-		        ExtendedUser user = client.fetchObject("/users/"+userID, ExtendedUser.class);
+		        List<MediaPost> medias = client.fetchCollection("/users/"+userID + "/media/recent", MediaPost.class
+		        		).getData();
 		    	        
-		        return user;
+		        return medias;
 		    }
 			
 			@Override
-			protected void onPostExecute(ExtendedUser user) {   
-			    Log.d("InstagramModule", "followed_by count = " + user.counts.followed_by);
+			protected void onPostExecute(List<MediaPost> medias) {   
+				for (int i =0 ; i < medias.size(); ++i) {
+					Log.d("InstagramModule", "image: caption = '" + medias.get(i).getCaption().getText() + 
+							"', likes = " + medias.get(i).getLikes().getCount());
+				}
 		        
-				mMediaListener.OnMedia(user.counts.followed_by);     
+				//mMediaListener.OnMedia(user.counts.followed_by);     
 			}
         	
         }.execute();
