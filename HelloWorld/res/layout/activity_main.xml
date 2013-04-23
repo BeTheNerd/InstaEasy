@@ -58,18 +58,14 @@
             android:id="@+id/loginBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Log in" 
-            android:layout_marginTop="100dp"/>
+            android:layout_marginTop="100dp"
+            android:text="Log in" />
 
-        <AutoCompleteTextView
-            android:id="@+id/usernameLabel"
+        <ListView
+            android:id="@+id/itemList"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="100dp"
-            android:layout_marginRight="100dp"
-            android:ems="10"
-            android:text=""
-            android:singleLine="true"/>
+            android:layout_height="fill_parent" >
+        </ListView>
 
     </LinearLayout>
 

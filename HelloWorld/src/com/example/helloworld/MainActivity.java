@@ -8,12 +8,16 @@ import com.blinxbox.restinstagram.types.MediaPost;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.database.DataSetObserver;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 
 public class MainActivity extends Activity implements MediaListener {
 	
@@ -56,10 +60,86 @@ public class MainActivity extends Activity implements MediaListener {
     }
 
 	@Override
-	public void OnMedia(List<MediaPost> medias) {
+	public void OnMedia(final List<MediaPost> medias) {
+		
+		ListView itemList = (ListView)findViewById(R.id.itemList);
+		
+		itemList.setAdapter(new ListAdapter() {
+
+			@Override
+			public int getCount() {
+				// TODO Auto-generated method stub
+				return medias.size();
+			}
+
+			@Override
+			public Object getItem(int position) {
+				// TODO Auto-generated method stub
+				return medias.get(position);
+			}
+
+			@Override
+			public long getItemId(int position) {
+				// TODO Auto-generated method stub
+				return position;
+			}
+
+			@Override
+			public boolean hasStableIds() {
+				// TODO Auto-generated method stub
+				return true;
+			}
+
+			@Override
+			public int getItemViewType(int position) {
+				return 0;
+			}
+
+			@Override
+			public int getViewTypeCount() {
+				return 1;
+			}
+
+			@Override
+			public View getView(int position, View convertView, ViewGroup parent) {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
+			public boolean isEmpty() {
+				// TODO Auto-generated method stub
+				return false;
+			}
+
+			@Override
+			public void registerDataSetObserver(DataSetObserver observer) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void unregisterDataSetObserver(DataSetObserver observer) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public boolean areAllItemsEnabled() {
+				return true;
+			}
+
+			@Override
+			public boolean isEnabled(int position) {
+				return true;
+			}
+			
+		});
+		
 		for (int i =0 ; i < medias.size(); ++i) {
-			Log.d("InstagramModule", "image: caption = '" + medias.get(i).getCaption().getText() + 
-					"', likes = " + medias.get(i).getLikes().getCount());
+//			Log.d("InstagramModule", "image: caption = '" + medias.get(i).getCaption().getText() + 
+//					"', likes = " + medias.get(i).getLikes().getCount()); 
+			 
 		}
 	}
     
