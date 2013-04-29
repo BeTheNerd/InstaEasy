@@ -103,7 +103,18 @@ public class MainActivity extends Activity implements MediaListener {
 			@Override
 			public View getView(int position, View convertView, ViewGroup parent) {
 				// TODO Auto-generated method stub
-				return null;
+				View view;
+				if (convertView != null) {
+					view = convertView;
+				}
+				else {
+					view = getLayoutInflater().inflate(R.layout.item_view, null);
+				}
+				EditText txt1 = (EditText)view.findViewById(R.id.field1);
+				EditText txt2 = (EditText)view.findViewById(R.id.field2);
+				txt1.setText(medias.get(position).getCaption().getText());
+				txt2.setText(medias.get(position).getLikes().getCount() + "");
+				return view;
 			}
 
 			@Override
