@@ -1,14 +1,20 @@
 package com.example.helloworld;
 
+import java.io.InputStream;
+import java.net.URL;
 import java.util.List;
 
 import com.blinxbox.restig.auth.InstagramAuthDialog;
 import com.blinxbox.restig.auth.InstagramAuthDialog.DialogListener;
+import com.blinxbox.restinstagram.Parameter;
 import com.blinxbox.restinstagram.types.MediaPost;
+import com.blinxbox.restinstagram.types.MediaPost.User;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
 import android.database.DataSetObserver;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -16,6 +22,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
@@ -101,7 +108,7 @@ public class MainActivity extends Activity implements MediaListener {
 			}
 
 			@Override
-			public View getView(int position, View convertView, ViewGroup parent) {
+			public View getView(final int position, View convertView, ViewGroup parent) {
 				// TODO Auto-generated method stub
 				View view;
 				if (convertView != null) {
@@ -114,6 +121,36 @@ public class MainActivity extends Activity implements MediaListener {
 				EditText txt2 = (EditText)view.findViewById(R.id.field2);
 				txt1.setText(medias.get(position).getCaption().getText());
 				txt2.setText(medias.get(position).getLikes().getCount() + "");
+				
+				final ImageView img = (ImageView)view.findViewById(R.id.image);
+				
+				
+				new AsyncTask<Object, Object, Drawable>() {
+
+					@Override
+					protected void onPostExecute(Drawable image) {   
+						img.setImageDrawable(image); 
+					}
+
+					@Override
+					protected Drawable doInBackground(Object... arg0) {
+						// TODO Auto-generated method stub
+						Object content = null;
+					    try{
+					      URL url = new URL(medias.get(position).getImages().getThumbnail().getUrl());
+					      content = url.getContent();
+					    }
+					      catch(Exception ex)
+					    {
+					    	Log.e("MainActivity", "Exception!", ex);
+					    }
+					    InputStream is = (InputStream)content;
+					    return Drawable.createFromStream(is, "src");
+					}
+		        	
+		        }.execute();
+				
+						
 				return view;
 			}
 
