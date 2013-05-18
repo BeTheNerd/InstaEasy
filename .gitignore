@@ -1,6 +1,7 @@
-HelloWorld/gen/
-HelloWorld/bin/
+gen/
+bin/
 restfb/build
 /pom.xml.asc
-/.eclipse-build
+.eclipse-build
 .metadata/
+restig/restig/target
