@@ -128,8 +128,13 @@ public class MainActivity extends Activity implements MediaListener {
 				new AsyncTask<Object, Object, Drawable>() {
 
 					@Override
+					protected void onPreExecute() {   
+						img.setImageResource(android.R.color.transparent);
+					}
+
+					@Override
 					protected void onPostExecute(Drawable image) {   
-						img.setImageDrawable(image); 
+						img.setImageDrawable(image);
 					}
 
 					@Override
