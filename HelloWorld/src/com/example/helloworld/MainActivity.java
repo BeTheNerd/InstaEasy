@@ -1,21 +1,18 @@
 package com.example.helloworld;
 
-import java.io.InputStream;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 
 import com.blinxbox.restig.auth.InstagramAuthDialog;
 import com.blinxbox.restig.auth.InstagramAuthDialog.DialogListener;
-import com.blinxbox.restinstagram.Parameter;
 import com.blinxbox.restinstagram.types.MediaPost;
-import com.blinxbox.restinstagram.types.MediaPost.User;
+import com.example.helloworld.util.ImageLoader;
+import com.example.helloworld.util.ImageLoader.URLObtainer;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
 import android.database.DataSetObserver;
-import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -68,11 +65,17 @@ public class MainActivity extends Activity implements MediaListener {
 
 	@Override
 	public void OnMedia(final List<MediaPost> medias) {
+        
+		URLObtainer<Integer> urlObtainer = new URLObtainer<Integer>() {
+    		public URL getURL(Integer position) throws MalformedURLException {
+				return new URL(medias.get(position).getImages().getThumbnail().getUrl());
+    		}
+		};
+        final ImageLoader<Integer> mImageLoader = new ImageLoader<Integer>(urlObtainer);
 		
 		ListView itemList = (ListView)findViewById(R.id.itemList);
 		
 		itemList.setAdapter(new ListAdapter() {
-
 			@Override
 			public int getCount() {
 				// TODO Auto-generated method stub
@@ -124,37 +127,7 @@ public class MainActivity extends Activity implements MediaListener {
 				
 				final ImageView img = (ImageView)view.findViewById(R.id.image);
 				
-				
-				new AsyncTask<Object, Object, Drawable>() {
-
-					@Override
-					protected void onPreExecute() {   
-						img.setImageResource(android.R.color.transparent);
-					}
-
-					@Override
-					protected void onPostExecute(Drawable image) {   
-						img.setImageDrawable(image);
-					}
-
-					@Override
-					protected Drawable doInBackground(Object... arg0) {
-						// TODO Auto-generated method stub
-						Object content = null;
-					    try{
-					      URL url = new URL(medias.get(position).getImages().getThumbnail().getUrl());
-					      content = url.getContent();
-					    }
-					      catch(Exception ex)
-					    {
-					    	Log.e("MainActivity", "Exception!", ex);
-					    }
-					    InputStream is = (InputStream)content;
-					    return Drawable.createFromStream(is, "src");
-					}
-		        	
-		        }.execute();
-				
+				mImageLoader.load(img, position);
 						
 				return view;
 			}
