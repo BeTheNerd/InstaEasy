@@ -117,8 +117,8 @@ public class MainActivity extends Activity implements MediaListener {
 				else {
 					view = getLayoutInflater().inflate(R.layout.item_view, null);
 				}
-				EditText txt1 = (EditText)view.findViewById(R.id.field1);
-				EditText txt2 = (EditText)view.findViewById(R.id.field2);
+				EditText txt1 = (EditText)view.findViewById(R.id.description);
+				EditText txt2 = (EditText)view.findViewById(R.id.numOfLikes);
 				txt1.setText(medias.get(position).getCaption().getText());
 				txt2.setText(medias.get(position).getLikes().getCount() + "");
 				
