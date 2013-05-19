@@ -9,25 +9,22 @@
     tools:context=".MainActivity" >
 
     <GridLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:alignmentMode="alignMargins"
-        android:columnCount="1"
-        android:columnOrderPreserved="true"
-        android:gravity="center_horizontal"
-        android:orientation="vertical"
-        android:rowOrderPreserved="true" >
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:columnCount="3"
+        android:columnWidth="200dp">
 
         <TextView
             android:id="@+id/usernameLabel_old"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_column="0"
+            android:layout_gravity="left|top"
+            android:layout_row="0"
             android:text="Username"
             android:textAlignment="center"
-            android:layout_row="0"
-            android:layout_column="0"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <TextView
@@ -41,46 +38,45 @@
             android:layout_column="0"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
-        <EditText
-            android:id="@+id/password"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_column="0"
-            android:layout_gravity="center_horizontal|bottom"
-            android:layout_row="1"
-            android:ems="10"
-            android:inputType="textPassword" >
-
-            <requestFocus />
-        </EditText>
-
         <ListView
             android:id="@+id/itemList"
             android:layout_width="match_parent"
-            android:layout_height="682dp"
+            android:layout_height="fill_parent"
             android:layout_column="0"
-            android:layout_gravity="left|top"
+            android:layout_columnSpan="3"
             android:layout_row="4" >
+
         </ListView>
 
         <Button
             android:id="@+id/loginBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_column="2"
             android:layout_gravity="right|top"
             android:layout_row="1"
-            android:layout_column="0"
             android:text="Log in" />
 
         <EditText
             android:id="@+id/username"
-            android:layout_width="150dp"
+            android:layout_width="130dp"
             android:layout_height="wrap_content"
-            android:layout_column="0"
+            android:layout_column="1"
+            android:layout_columnSpan="1"
             android:layout_gravity="center_horizontal|top"
             android:layout_row="0"
             android:ems="10"
             android:singleLine="true" />
+
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:layout_gravity="left|center_vertical"
+            android:layout_row="1"
+            android:ems="10"
+            android:inputType="textPassword" />
 
     </GridLayout>
 
