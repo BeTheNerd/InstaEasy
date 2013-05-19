@@ -5,5 +5,5 @@ restfb/build
 .eclipse-build
 .metadata/
 *.lnk
-restig/restig/.classpath
-restig/InstagramAuth/.classpath
+.classpath
+restig/restig/target/
