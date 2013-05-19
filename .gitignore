@@ -4,5 +4,6 @@ restfb/build
 /pom.xml.asc
 .eclipse-build
 .metadata/
-restig/restig/target
-eclipse - Shortcut.lnk
+*.lnk
+restig/restig/.classpath
+restig/InstagramAuth/.classpath
