@@ -10,8 +10,10 @@ import com.blinxbox.restinstagram.types.MediaPost;
 import com.example.helloworld.util.ImageLoader;
 import com.example.helloworld.util.ImageLoader.URLObtainer;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.database.DataSetObserver;
 import android.view.Menu;
 import android.view.View;
@@ -26,6 +28,7 @@ import android.widget.ListView;
 public class MainActivity extends Activity implements MediaListener {
 	
 	private Button _loginBtn;
+	private Button _logoutBtn;
 	private static final String mAppId = "8873b03ecdc14bb29b8dbd78466bcf92";
 
 
@@ -33,6 +36,7 @@ public class MainActivity extends Activity implements MediaListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        
         _loginBtn = (Button)findViewById(R.id.loginBtn);
         _loginBtn.setOnClickListener(new OnClickListener() {
 			
@@ -43,6 +47,16 @@ public class MainActivity extends Activity implements MediaListener {
 			}
 		});
 		
+        _logoutBtn = (Button)findViewById(R.id.logoutBtn);
+        _logoutBtn.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+		        final InstagramLogoutDialog dialog = new InstagramLogoutDialog(MainActivity.this);
+//		        dialog.setCancelable(false);
+		        dialog.show();
+			}
+		});
     }
 
     public void authorize(final DialogListener listener,
